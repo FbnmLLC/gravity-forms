@@ -1576,8 +1576,9 @@ class GFIr123pay_FBNM {
 
 			<?php
 			$id        = ! rgempty( "ir123pay_setting_id" ) ? rgpost( "ir123pay_setting_id" ) : absint( rgget( "id" ) );
-			$config    = empty( $id ) ? array( "meta"      => array(),
-			                                   "is_active" => true
+			$config    = empty( $id ) ? array(
+				"meta"      => array(),
+				"is_active" => true
 			) : GFIr123payData::get_feed( $id );
 			$get_feeds = GFIr123payData::get_feeds();
 			$form_name = '';
@@ -2591,7 +2592,7 @@ class GFIr123pay_FBNM {
 				GFAPI::update_entry_property( $entry_id, "transaction_type", 1 );
 			}
 
-			$callback_url = urlencode( self::Return_URL_Ir123pay( $form['id'], $entry_id ) );
+			$callback_url = self::Return_URL_Ir123pay( $form['id'], $entry_id );
 		}
 
 
@@ -2724,8 +2725,8 @@ class GFIr123pay_FBNM {
 				try {
 
 					$merchant_id = self::get_merchant_id();
-					$State       = isset( $_REQUEST['State'] ) ? sanitize_text_field( $_POST['State'] ) : '';
-					$RefNum      = isset( $_REQUEST['RefNum'] ) ? sanitize_text_field( $_POST['RefNum'] ) : '';
+					$State       = isset( $_REQUEST['State'] ) ? sanitize_text_field( $_REQUEST['State'] ) : '';
+					$RefNum      = isset( $_REQUEST['RefNum'] ) ? sanitize_text_field( $_REQUEST['RefNum'] ) : '';
 
 					$ch = curl_init();
 					curl_setopt( $ch, CURLOPT_URL, 'https://123pay.ir/api/v1/verify/payment' );
